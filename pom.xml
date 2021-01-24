@@ -1,11 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>io.github.takingoff</groupId>
-  <artifactId>first-sonatype</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
-  <dependencies>
-  <dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.takingoff</groupId>
+	<artifactId>first-sonatype</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+	<dependencies>
+		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
@@ -22,6 +28,133 @@
 			<artifactId>commons-collections4</artifactId>
 			<version>4.1</version>
 		</dependency>
-  
-  </dependencies>
+	</dependencies>
+
+
+
+
+	<build>
+		<plugins>
+			<!--Compiler -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<!-- Source -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam><!-- 添加这个压制JavaDoc检查 -->
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase -->
+		<!-- 	<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
+		</plugins>
+	</build>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo,manual</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>tangli</name>
+			<email>917401186@qq.com</email>
+			<organization>tangli</organization>
+			<url>https://github.com/takingoff</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:https://github.com/takingoff/first-sonatype.git</connection>
+		<developerConnection>scm:git:https://github.com/takingoff/first-sonatype.git</developerConnection>
+		<url>https://github.com/takingoff/first-sonatype</url>
+		<tag>0.0.1</tag>
+	</scm>
+
+
+	<!--下面兩個地址大家都一样。 是根据自己的账号区分的-->
+	<distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<name>OSS Staging Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<name>OSS Snapshots Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
+
+	<!--deploy 到自己的私服上。 在settings.xml 中配置 server，nexus的用户名、密码。id和以下repository对应即可。 -->
+	<!-- <distributionManagement>
+		<repository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>myrelease</id>
+			<name>release Repository</name>
+			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
+			<layout>default</layout>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>mysnap</id>
+			<name>Snapshots</name>
+			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+			<layout>legacy</layout>
+		</snapshotRepository>
+	</distributionManagement> -->
+
+
 </project>
